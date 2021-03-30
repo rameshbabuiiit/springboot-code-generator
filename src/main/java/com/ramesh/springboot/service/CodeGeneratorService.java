@@ -27,7 +27,8 @@ public class CodeGeneratorService {
 	}
 
 	public String buildJavaClass(List<ColumnsTable> recs, String tableName) {
-		StringBuilder str = new StringBuilder("public class " + getCapInit(tableName) + "{\r\n");
+		StringBuilder str = new StringBuilder(
+				"@Data\r\n@Accessors(chain = true)\r\npublic class " + getCapInit(tableName) + "Model{\r\n");
 		for (ColumnsTable rec : recs) {
 			str.append("private " + getJavaDataType(rec.getDataType()) + " " + getInitCapital(rec.getColumnName())
 					+ ";\r\n");
@@ -37,9 +38,10 @@ public class CodeGeneratorService {
 	}
 
 	public String buildEntityClass(List<ColumnsTable> recs, String tableName) {
-		StringBuilder str = new StringBuilder("@Entity \r\n" + "@Table(name = Constants." + tableName.toUpperCase()
-				+ ")\r\n public class " + getCapInit(tableName)
-				+ " implements Serializable { \r\n private static final long serialVersionUID = 1l;\r\n");
+		StringBuilder str = new StringBuilder(
+				"@Data\r\n" + "@Accessors(chain = true)\r\n" + "@Entity \r\n" + "@Table(name = Constants."
+						+ tableName.toUpperCase() + "_TABLE)\r\n public class " + getCapInit(tableName)
+						+ "Entity implements Serializable { \r\n private static final long serialVersionUID = 1l;\r\n");
 		int i = 0;
 		for (ColumnsTable rec : recs) {
 			if (i == 0) {
@@ -59,7 +61,7 @@ public class CodeGeneratorService {
 
 	public String buildConstantsClass(List<ColumnsTable> recs, String tableName) {
 		StringBuilder str = new StringBuilder("public interface Constants { \r\n public static final String "
-				+ tableName.toUpperCase() + " = " + "\"" + tableName.toUpperCase() + "\"" + ";\r\n");
+				+ tableName.toUpperCase() + "_TABLE = " + "\"" + tableName.toUpperCase() + "\"" + ";\r\n");
 		for (ColumnsTable rec : recs) {
 			str.append("public static final String " + rec.getColumnName().toUpperCase() + " = " + "\""
 					+ rec.getColumnName().toLowerCase() + "\"" + ";\r\n");
