@@ -11,11 +11,12 @@ import com.ramesh.springboot.service.CodeGeneratorService;
 public class CodeController {
 	@Autowired
 	CodeGeneratorService codeGeneratorService;
-	@GetMapping(value = { "/table-name/{details}" })
-	public String getData(@PathVariable(value = "details") String str) {
-		if (str == null || str.isEmpty())
+	@GetMapping(value = { "schema/{schema}/table/{table}" })
+	public String getData(@PathVariable(value = "schema") String schema,@PathVariable(value = "table") String table) {
+
+		if (table == null || table.isEmpty())
 			return null;
 		else
-			return codeGeneratorService.getColumns(str);
+			return codeGeneratorService.getColumns(table,schema);
 	}
 }

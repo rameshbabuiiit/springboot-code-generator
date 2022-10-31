@@ -15,8 +15,8 @@ public class CodeGeneratorService {
 	@Autowired
 	ColumnsRepositoryImpl repo;
 
-	public String getColumns(String tableName) {
-		List<ColumnsTable> columnsTableRecs = repo.findByTableName(tableName);
+	public String getColumns(String tableName, String schema) {
+		List<ColumnsTable> columnsTableRecs = repo.findByTableName(tableName, schema);
 		StringBuilder result = new StringBuilder();
 
 		result.append(buildConstantsClass(columnsTableRecs, tableName) + "\r\n\r\n\r\n");

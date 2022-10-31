@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 import com.ramesh.springboot.model.ColumnsTable;
 @Service
 public interface ColumnsRepository {
-	 List<ColumnsTable> findByTableName(String name);
+	 List<ColumnsTable> findByTableName(String name, String tableSchema);
 }
